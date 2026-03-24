@@ -356,6 +356,61 @@ describe("resolveCliModel", () => {
 		expect(result.model?.id).toBe("glm-5");
 	});
 
+	test("resolves zai-coding provider with model", () => {
+		const zaiCodingModel: Model<"openai-completions"> = {
+			id: "glm-5",
+			name: "GLM-5",
+			api: "openai-completions",
+			provider: "zai-coding",
+			baseUrl: "https://open.bigmodel.cn/api/coding/paas/v4",
+			reasoning: true,
+			input: ["text"],
+			cost: { input: 1, output: 2, cacheRead: 0.1, cacheWrite: 1 },
+			contextWindow: 128000,
+			maxTokens: 8192,
+		};
+		const registry = {
+			getAll: () => [...allModels, zaiCodingModel],
+		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
+
+		const result = resolveCliModel({
+			cliModel: "zai-coding/glm-5",
+			modelRegistry: registry,
+		});
+
+		expect(result.error).toBeUndefined();
+		expect(result.model?.provider).toBe("zai-coding");
+		expect(result.model?.id).toBe("glm-5");
+	});
+
+	test("resolves zai-coding via explicit --provider and --model", () => {
+		const zaiCodingModel: Model<"openai-completions"> = {
+			id: "glm-4.7",
+			name: "GLM-4.7",
+			api: "openai-completions",
+			provider: "zai-coding",
+			baseUrl: "https://open.bigmodel.cn/api/coding/paas/v4",
+			reasoning: true,
+			input: ["text"],
+			cost: { input: 1, output: 2, cacheRead: 0.1, cacheWrite: 1 },
+			contextWindow: 128000,
+			maxTokens: 8192,
+		};
+		const registry = {
+			getAll: () => [...allModels, zaiCodingModel],
+		} as unknown as Parameters<typeof resolveCliModel>[0]["modelRegistry"];
+
+		const result = resolveCliModel({
+			cliProvider: "zai-coding",
+			cliModel: "glm-4.7",
+			modelRegistry: registry,
+		});
+
+		expect(result.error).toBeUndefined();
+		expect(result.model?.provider).toBe("zai-coding");
+		expect(result.model?.id).toBe("glm-4.7");
+	});
+
 	test("resolves provider-prefixed fuzzy patterns (openrouter/qwen -> openrouter model)", () => {
 		const registry = {
 			getAll: () => allModels,
@@ -380,6 +435,7 @@ describe("default model selection", () => {
 
 	test("zai, minimax, and cerebras defaults track current models", () => {
 		expect(defaultModelPerProvider.zai).toBe("glm-5");
+		expect(defaultModelPerProvider["zai-coding"]).toBe("glm-5-turbo");
 		expect(defaultModelPerProvider.minimax).toBe("MiniMax-M2.7");
 		expect(defaultModelPerProvider["minimax-cn"]).toBe("MiniMax-M2.7");
 		expect(defaultModelPerProvider.cerebras).toBe("zai-glm-4.7");

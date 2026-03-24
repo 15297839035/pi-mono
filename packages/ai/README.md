@@ -57,6 +57,8 @@ Unified LLM API with automatic model discovery, provider configuration, token an
 - **Groq**
 - **Cerebras**
 - **xAI**
+- **zAI**
+- **zAI Coding** (GLM coding endpoint, uses `ZAI_API_KEY`)
 - **OpenRouter**
 - **Vercel AI Gateway**
 - **MiniMax**
@@ -940,6 +942,7 @@ In Node.js environments, you can set environment variables to avoid passing API 
 | OpenRouter | `OPENROUTER_API_KEY` |
 | Vercel AI Gateway | `AI_GATEWAY_API_KEY` |
 | zAI | `ZAI_API_KEY` |
+| zAI Coding | `ZAI_API_KEY` |
 | MiniMax | `MINIMAX_API_KEY` |
 | OpenCode Zen / OpenCode Go | `OPENCODE_API_KEY` |
 | Kimi For Coding | `KIMI_API_KEY` |

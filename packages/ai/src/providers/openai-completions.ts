@@ -790,7 +790,11 @@ function detectCompat(model: Model<"openai-completions">): Required<OpenAIComple
 	const provider = model.provider;
 	const baseUrl = model.baseUrl;
 
-	const isZai = provider === "zai" || baseUrl.includes("api.z.ai");
+	const isZai =
+		provider === "zai" ||
+		provider === "zai-coding" ||
+		baseUrl.includes("api.z.ai") ||
+		baseUrl.includes("open.bigmodel.cn");
 
 	const isNonStandard =
 		provider === "cerebras" ||

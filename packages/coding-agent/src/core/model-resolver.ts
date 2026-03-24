@@ -28,6 +28,7 @@ export const defaultModelPerProvider: Record<KnownProvider, string> = {
 	groq: "openai/gpt-oss-120b",
 	cerebras: "zai-glm-4.7",
 	zai: "glm-5",
+	"zai-coding": "glm-5-turbo",
 	mistral: "devstral-medium-latest",
 	minimax: "MiniMax-M2.7",
 	"minimax-cn": "MiniMax-M2.7",
