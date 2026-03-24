@@ -23,7 +23,7 @@ describe("zai-coding provider", () => {
 
 	test("zai models use the standard endpoint URL", () => {
 		for (const model of Object.values(MODELS.zai)) {
-			expect(model.baseUrl).toBe("https://api.z.ai/api/coding/paas/v4");
+			expect(model.baseUrl).toBe("https://open.bigmodel.cn/api/paas/v4");
 			expect(model.provider).toBe("zai");
 		}
 	});
